@@ -1,0 +1,40 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"><meta name="format-detection" content="telephone=no"><meta name="format-detection" content="email=no"><title>Centos 6.7 X64 的OpenLiteSpeed 1.4 ＋ PHP 5.6 ＋ MariaDB 10.1 安装 - cnccpc Blog</title><meta name="description"><meta name="keywords" content="cnccpc,Centos"><link rel="icon" href="/favicon.ico"><link rel="stylesheet" href="/css/main_style.min.css"></head><body><div class="post-header"><img class="background" src="/default_images/post_background.jpg"><div class="post-title"><h1 class="title">Centos 6.7 X64 的OpenLiteSpeed 1.4 ＋ PHP 5.6 ＋ MariaDB 10.1 安装</h1><ul class="meta"><li><i class="icon icon-author"></i>cnccpc</li><li><i class="icon icon-clock"></i>5 Minutes</li><li><i class="icon icon-calendar"></i>November 25, 2016</li></ul></div></div><div class="article-content"><p>手里有着VPS，闲着也是闲着，所以瞎折腾点东西。说说OpenLiteSpeed，一个轻小的服务器，性能到是还不错的，占用内存小。OpenLiteSpeed 其实就是 LiteSpeed 的免费开源版本， 兼容 Apache 的特性，就是不支持直接读取文件目录中的 .htaccess罢了。下面开始简单安装教程吧。<br>安装环境：centos 6.7 X64<br>安装清单；<br>OpenLiteSpeed 1.4<br>PHP 5.6<br>MariaDB 10.1</p>
+<p>1.在开始之前，我们开始更新下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum update</div></pre></td></tr></table></figure>
+<p>2.添加OpenLiteSpeed对应在 CentOS6 的软件库</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rpm -ivh http://rpms.litespeedtech.com/centos/litespeed-repo-1.1-1.el6.noarch.rpm</div></pre></td></tr></table></figure>
+<p>3.添加 MariaDB 的软件库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">[mariadb]</div><div class="line"></div><div class="line"> name = MariaDB</div><div class="line"></div><div class="line"> baseurl = http://yum.mariadb.org/10.1/centos6-amd64</div><div class="line"></div><div class="line"> gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB</div><div class="line"></div><div class="line"> gpgcheck=1</div></pre></td></tr></table></figure>
+<p>4.安装 EPEL</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install epel-release</div></pre></td></tr></table></figure>
+<p>5.安装 OpenLiteSpeed 1.4</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install openlitespeed14</div></pre></td></tr></table></figure>
+<p>6.安装 PHP 5.6</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">yum install lsphp56-* --skip-broken</div><div class="line"></div><div class="line">ln -sf /usr/<span class="built_in">local</span>/lsws/lsphp56/bin/lsphp /usr/<span class="built_in">local</span>/lsws/fcgi-bin/lsphp5</div></pre></td></tr></table></figure>
+<p>7.安装 MariaDB 10.1</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum -y install MariaDB-client MariaDB-server MariaDB-devel</div></pre></td></tr></table></figure>
+<p>启动服务：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">service mysql start</div></pre></td></tr></table></figure>
+<p>修改 Root 密码:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysqladmin -u root password ‘你的密码’</div></pre></td></tr></table></figure>
+<p>8.修改OpenLiteSpeed后台密码：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/usr/<span class="built_in">local</span>/lsws/admin/misc/admpass.sh</div></pre></td></tr></table></figure>
+<p>输入登入 OpenLiteSpeed 的可视化控制面板帐号和密码</p>
+<p>9.启动OpenLiteSpeed</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/usr/<span class="built_in">local</span>/lsws/bin/lswsctrl start</div></pre></td></tr></table></figure>
+<p>10.在浏览器登录 OpenLiteSpeed 的可视化控制面板</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://你的vps的ip地址:7080</div></pre></td></tr></table></figure>
+<p>11.开启7080端口</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">iptables -I INPUT -p tcp --dport 7080 -j ACCEPT</div><div class="line"></div><div class="line">iptables save</div></pre></td></tr></table></figure>
+<p>12.查看打开的端口</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">iptables status</div></pre></td></tr></table></figure>
+</div><div class="article-meta"></div><div class="article-comment"><div class="ds-thread" id="ds-thread" data-thread-key="civxnk0e30000ssvqacy01xao" data-title="Centos 6.7 X64 的OpenLiteSpeed 1.4 ＋ PHP 5.6 ＋ MariaDB 10.1 安装" data-url="https://cnccpc.github.io/2016/11/25/Centos 6.7 X64 的OpenLiteSpeed 1.4 ＋ PHP 5.6 ＋ MariaDB 10.1 安装/" site-name="cnccpc"></div><script>var siteName = document.getElementById('ds-thread').getAttribute('site-name');
+var duoshuoQuery = {short_name: siteName};
+(function() {
+  var ds = document.createElement('script');
+  ds.type = 'text/javascript';ds.async = true;
+  ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+  ds.charset = 'UTF-8';
+  (document.getElementsByTagName('head')[0] 
+  || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();</script></div><ul class="navication"><li class="home"><a href="/"><i class="icon icon-home"></i></a></li></ul><div class="page-footer"><div class="top"><ul class="social"><li><a href="http://github.com/cnccpc" title="GitHub" target="_blank"><i class="icon icon-github"></i></a></li></ul></div><div class="bottom"><p class="copyright">© 2016 cnccpc Blog<br><small>POWER BY <a href="https://hexo.io" target="_blank">HEXO</a></small><small>, THEME BY <a href="https://github.com/BoizZ/hexo-theme-laughing" target="_blank">LAUGHING</a></small></p></div></div></body></html>
