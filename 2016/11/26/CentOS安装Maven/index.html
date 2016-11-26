@@ -1,0 +1,28 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"><meta name="format-detection" content="telephone=no"><meta name="format-detection" content="email=no"><title>CentOS安装Maven - cnccpc Blog</title><meta name="description"><meta name="keywords" content="cnccpc,Centos"><link rel="icon" href="/favicon.ico"><link rel="stylesheet" href="/css/main_style.min.css"></head><body><div class="post-header"><img class="background" src="/default_images/post_background.jpg"><div class="post-title"><h1 class="title">CentOS安装Maven</h1><ul class="meta"><li><i class="icon icon-author"></i>cnccpc</li><li><i class="icon icon-clock"></i>3 Minutes</li><li><i class="icon icon-calendar"></i>November 26, 2016</li></ul></div></div><div class="article-content"><p>Maven的下载地址是：<a href="http://maven.apache.org/download.cgi" target="_blank" rel="external">http://maven.apache.org/download.cgi</a></p>
+<p>安装Maven非常简单，只需要将下载的压缩文件解压就可以了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">cd /usr/local/src/</div><div class="line">wget http://mirrors.hust.edu.cn/apache/maven/maven-3/3.1.1/binaries/apache-maven-3.1.1-bin.tar.gz</div><div class="line">tar zxf apache-maven-3.1.1-bin.tar.gz</div><div class="line">mv apache-maven-3.1.1 /usr/local/maven3</div></pre></td></tr></table></figure>
+<p>然后还需要 配置环境变量。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">vi /etc/profile</div><div class="line"></div><div class="line">#在适当的位置添加</div><div class="line">export M2_HOME=/usr/local/maven3</div><div class="line">export PATH=$PATH:$JAVA_HOME/bin:$M2_HOME/bin</div></pre></td></tr></table></figure>
+<p><strong>或者设置环境变量</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi /etc/profile</div></pre></td></tr></table></figure>
+<p>注：进入profile 之后按 i 键进行编辑，Esc 键进入命令模式输出 :wq! 保存并退出</p>
+<p><strong>写入以下配置:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">export M2_HOME=/usr/local/maven3</div><div class="line"></div><div class="line">export PATH=$JAVA_HOME/bin:$JAVA_HOME/jre/bin:$M2_HOME/bin:$PATH</div></pre></td></tr></table></figure>
+<hr>
+<p>保存退出后运行下面的命令使配置生效，或者重启服务器生效。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">source /etc/profile</div></pre></td></tr></table></figure>
+<p>验证版本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mvn -v</div></pre></td></tr></table></figure>
+<p>如果安装正确就可以看到Maven的版本了。如果提示以下错误，请检查/etc/profile中PATH环境变量值中是否包含Maven可执行文件的路径，以及是否使该配置生效。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">-bash: mvn: command not found</div></pre></td></tr></table></figure>
+<p>更多关于Maven的用法可以从这里找到：<a href="http://maven.apache.org/guides/getting-started/index.html" target="_blank" rel="external">Maven Getting Started Guide</a></p>
+</div><div class="article-meta"></div><div class="article-comment"><div class="ds-thread" id="ds-thread" data-thread-key="civyvja2u0000covqnh2o4jqq" data-title="CentOS安装Maven" data-url="https://cnccpc.github.io/2016/11/26/CentOS安装Maven/" site-name="cnccpc"></div><script>var siteName = document.getElementById('ds-thread').getAttribute('site-name');
+var duoshuoQuery = {short_name: siteName};
+(function() {
+  var ds = document.createElement('script');
+  ds.type = 'text/javascript';ds.async = true;
+  ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+  ds.charset = 'UTF-8';
+  (document.getElementsByTagName('head')[0] 
+  || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();</script></div><ul class="navication"><li class="home"><a href="/"><i class="icon icon-home"></i></a></li><li><a href="/2016/11/25/Centos 6.7 X64 的OpenLiteSpeed 1.4 ＋ PHP 5.6 ＋ MariaDB 10.1 安装/"><i class="icon icon-arror-right"></i></a></li></ul><div class="page-footer"><div class="top"><ul class="social"><li><a href="http://github.com/cnccpc" title="GitHub" target="_blank"><i class="icon icon-github"></i></a></li></ul></div><div class="bottom"><p class="copyright">© 2016 cnccpc Blog<br><small>POWER BY <a href="https://hexo.io" target="_blank">HEXO</a></small><small>, THEME BY <a href="https://github.com/BoizZ/hexo-theme-laughing" target="_blank">LAUGHING</a></small></p></div></div></body></html>
