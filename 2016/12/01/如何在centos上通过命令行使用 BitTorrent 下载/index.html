@@ -1,0 +1,31 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"><meta name="format-detection" content="telephone=no"><meta name="format-detection" content="email=no"><title>如何在centos上通过命令行使用 BitTorrent 下载 - cnccpc Blog</title><meta name="description"><meta name="keywords" content="cnccpc,Centos"><link rel="icon" href="/favicon.ico"><link rel="stylesheet" href="/css/main_style.min.css"></head><body><div class="post-header"><img class="background" src="/default_images/post_background.jpg"><div class="post-title"><h1 class="title">如何在centos上通过命令行使用 BitTorrent 下载</h1><ul class="meta"><li><i class="icon icon-author"></i>cnccpc</li><li><i class="icon icon-clock"></i>3 Minutes</li><li><i class="icon icon-calendar"></i>December 1, 2016</li></ul></div></div><div class="article-content"><h1 id="1-安装-transmission-cli"><a href="#1-安装-transmission-cli" class="headerlink" title="1.安装 transmission-cli"></a>1.安装 <strong>transmission-cli</strong></h1><p>在 Debian、Ubuntu 或者是基于它们的发行版上：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo apt-get install transmission-cli</div></pre></td></tr></table></figure>
+<p>在 Fedora 上：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo yum install transmission-cli</div></pre></td></tr></table></figure>
+<p>在 CentOS 或者 RHEL 上（在安装了 <a href="http://xmodulo.com/how-to-set-up-epel-repository-on-centos.html" target="_blank" rel="external">EPEL 仓库</a>之后）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo yum install transmission-cli</div></pre></td></tr></table></figure>
+<h1 id="2-通过-transmission-cli-快速地下载-ISO-镜像"><a href="#2-通过-transmission-cli-快速地下载-ISO-镜像" class="headerlink" title="2.通过 transmission-cli 快速地下载 ISO 镜像"></a>2.通过 transmission-cli 快速地下载 ISO 镜像</h1><p><strong>transmission-cli</strong>的使用非常简单。如果你懒于学习它的命令行选项，所有你要做的事情就是下载 .torrent 文件并运行命令。这会自动寻找可用的种子并从那里下载 ISO 文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ wget http://releases.ubuntu.com/14.10/ubuntu-14.10-desktop-amd64.iso.torrent</div><div class="line">$ transmission-cli ubuntu-14.10-desktop-amd64.iso.torrent</div></pre></td></tr></table></figure>
+<p>一旦 ISO 镜像下载完成，它默认存储在 ~/Downloads 文件夹中。下载 1GB 的 Ubuntu ISO 镜像只用了我 5 分钟的时间。</p>
+<p>程序下载 ISO 镜像完成后，你会在终端中看到“状态由未完成变为完成”的提示。要注意的是 transmission-cli 会继续运行并做种以便于其他下载者下载。可以按 Ctrl+C 来退出。</p>
+<h1 id="3-为重复使用定制下载选项"><a href="#3-为重复使用定制下载选项" class="headerlink" title="3.为重复使用定制下载选项"></a>3.为重复使用定制下载选项</h1><p>如果你经常使用 <strong>transmission-cli</strong> ，那么值得花时间来熟悉一下它的命令行选项。</p>
+<ul>
+<li><p>“-w /path/to/download-directory” 选项指定下载文件保存的文件夹。</p>
+</li>
+<li><p>“-f /path/to/finish-script” 选项设置当前下载完成后要运行的脚本。注意 transmission-cli 默认在文件下载完成后继续运行。如果你想在成功下载完成后自动关闭 transmission-cli，你可以使用这个选项。下面这个简单的脚本可以完成这个功能。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/sh</span></div><div class="line">sleep 10</div><div class="line">killall transmission-cli</div></pre></td></tr></table></figure>
+</li>
+<li><p>如果你想为 transmission-cli 分配上传/下载带宽限制，你可以使用 “-d <download-speed-in-kb s="">” 和 “-u <upload-speed-in-kb s="">” 选项。如果你不想限制带宽使用，仅仅指定 “D” 或 “-U” 选项即可。</upload-speed-in-kb></download-speed-in-kb></p>
+</li>
+</ul>
+<p>这有一个更高级的 transmission-cli 使用范例。在这个例子中，命令行客户端在成功下载后自动退出。下载速度不限而上传速度限制为 50KB/s。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ transmission-cli -w ~/iso -D -u 50 <span class="_">-f</span> ~/finish.sh ubuntu-14.10-desktop-amd64.iso.torrent</div></pre></td></tr></table></figure></div><div class="article-meta"></div><div class="article-comment"><div class="ds-thread" id="ds-thread" data-thread-key="ciw5xam0b00002cvq0hz2zjq9" data-title="如何在centos上通过命令行使用 BitTorrent 下载" data-url="https://cnccpc.github.io/2016/12/01/如何在centos上通过命令行使用 BitTorrent 下载/" site-name="cnccpc"></div><script>var siteName = document.getElementById('ds-thread').getAttribute('site-name');
+var duoshuoQuery = {short_name: siteName};
+(function() {
+  var ds = document.createElement('script');
+  ds.type = 'text/javascript';ds.async = true;
+  ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+  ds.charset = 'UTF-8';
+  (document.getElementsByTagName('head')[0] 
+  || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();</script></div><ul class="navication"><li class="home"><a href="/"><i class="icon icon-home"></i></a></li><li><a href="/2016/11/30/IDEA快捷键大全/"><i class="icon icon-arror-right"></i></a></li></ul><div class="page-footer"><div class="top"><ul class="social"><li><a href="http://github.com/cnccpc" title="GitHub" target="_blank"><i class="icon icon-github"></i></a></li></ul></div><div class="bottom"><p class="copyright">© 2016 cnccpc Blog<br><small>POWER BY <a href="https://hexo.io" target="_blank">HEXO</a></small><small>, THEME BY <a href="https://github.com/BoizZ/hexo-theme-laughing" target="_blank">LAUGHING</a></small></p></div></div></body></html>
