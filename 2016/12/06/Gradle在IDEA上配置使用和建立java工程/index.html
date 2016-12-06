@@ -1,0 +1,23 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"><meta name="format-detection" content="telephone=no"><meta name="format-detection" content="email=no"><title>Gradle在IDEA上配置使用和建立java工程 - cnccpc Blog</title><meta name="description"><meta name="keywords" content="cnccpc,Centos"><link rel="icon" href="/favicon.ico"><link rel="stylesheet" href="/css/main_style.min.css"></head><body><div class="post-header"><img class="background" src="/default_images/post_background.jpg"><div class="post-title"><h1 class="title">Gradle在IDEA上配置使用和建立java工程</h1><ul class="meta"><li><i class="icon icon-author"></i>cnccpc</li><li><i class="icon icon-clock"></i>1 Minutes</li><li><i class="icon icon-calendar"></i>December 6, 2016</li></ul></div></div><div class="article-content"><p> Gradle在构建工具里，显得更加方便和快捷。</p>
+<h1 id="1-环境准备"><a href="#1-环境准备" class="headerlink" title="1. 环境准备"></a>1. 环境准备</h1><h1 id="1-1-下载最新版的Gradle程序"><a href="#1-1-下载最新版的Gradle程序" class="headerlink" title="1.1. 下载最新版的Gradle程序"></a>1.1. 下载最新版的Gradle程序</h1><p>下载地址：<a href="https://gradle.org/gradle-download/" target="_blank" rel="external">https://gradle.org/gradle-download/</a></p>
+<h1 id="1-2-配置环境变量"><a href="#1-2-配置环境变量" class="headerlink" title="1.2. 配置环境变量"></a>1.2. 配置环境变量</h1><p>GRADLE_HOME：值为gradle根目录路径，并在PATH中添加 “%GRADLE_HOME%\bin”</p>
+<h1 id="1-3-配置IDEA工具的Gradle环境"><a href="#1-3-配置IDEA工具的Gradle环境" class="headerlink" title="1.3. 配置IDEA工具的Gradle环境"></a>1.3. 配置IDEA工具的Gradle环境</h1><p>在IDEA的settings中找到Gradle选项，配置gradle home路径<img src="https://ooo.0o0.ooo/2016/12/06/5846a14b11a47.png" alt="配置gradle home路径"></p>
+<h1 id="2-创建Gradle项目"><a href="#2-创建Gradle项目" class="headerlink" title="2. 创建Gradle项目"></a>2. 创建Gradle项目</h1><p>点击新建一个Gradle工程，选择java（当需要创建javaweb项目时，选择加上web）</p>
+<p><img src="https://ooo.0o0.ooo/2016/12/06/5846a395391fb.png" alt="gradle3.png"></p>
+<p>group和version分别为项目的所在组和版本信息。和Maven类似，而artifactId在gradle则是项目的name，值保存在settings.gradle文件的rootProject.name中。</p>
+<p><img src="https://ooo.0o0.ooo/2016/12/06/5846a3954a768.png" alt="gradle4.png"></p>
+<p><img src="https://ooo.0o0.ooo/2016/12/06/5846a58a9ea03.png" alt="gradle5.png"></p>
+<p>最后选择点击Finish即可</p>
+<p><img src="https://ooo.0o0.ooo/2016/12/06/5846a5e3471cb.png" alt="gradle6.png"></p>
+<p>这样就等待Gradle生成基本java项目即可，在src/main/java里编写java代码，然后使用gradle的build命令，看看能否构建成功。</p>
+<p>“BUILD SUCCESSFUL” 则项目目录下多了build文件夹，在libs中会有已经打包好的jar文件。</p>
+</div><div class="article-meta"></div><div class="article-comment"><div class="ds-thread" id="ds-thread" data-thread-key="ciwdgqix000002wvqk74npexw" data-title="Gradle在IDEA上配置使用和建立java工程" data-url="https://cnccpc.github.io/2016/12/06/Gradle在IDEA上配置使用和建立java工程/" site-name="cnccpc"></div><script>var siteName = document.getElementById('ds-thread').getAttribute('site-name');
+var duoshuoQuery = {short_name: siteName};
+(function() {
+  var ds = document.createElement('script');
+  ds.type = 'text/javascript';ds.async = true;
+  ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+  ds.charset = 'UTF-8';
+  (document.getElementsByTagName('head')[0] 
+  || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();</script></div><ul class="navication"><li class="home"><a href="/"><i class="icon icon-home"></i></a></li><li><a href="/2016/12/03/平时笔记(1)/"><i class="icon icon-arror-right"></i></a></li></ul><div class="page-footer"><div class="top"><ul class="social"><li><a href="http://github.com/cnccpc" title="GitHub" target="_blank"><i class="icon icon-github"></i></a></li></ul></div><div class="bottom"><p class="copyright">© 2016 cnccpc Blog<br><small>POWER BY <a href="https://hexo.io" target="_blank">HEXO</a></small><small>, THEME BY <a href="https://github.com/BoizZ/hexo-theme-laughing" target="_blank">LAUGHING</a></small></p></div></div></body></html>
